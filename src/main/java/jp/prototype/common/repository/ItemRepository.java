@@ -18,35 +18,21 @@ public class ItemRepository {
   private JdbcTemplate jdbcTemplate;
 
   public int[] batchInsert(List<Item> items) {
-//    return this.jdbcTemplate.batchUpdate(createSql(),
-//        new BatchPreparedStatementSetter() {
-//          public void setValues(PreparedStatement ps, int i) throws SQLException {
-//            ps.setInt(1, items.get(i).getId());
-//            ps.setString(2, items.get(i).getName());
-//            ps.setString(3, items.get(i).getType());
-//            ps.setString(4, items.get(i).getName());
-//            ps.setString(5, items.get(i).getType());
-//          }
-//
-//          public int getBatchSize() {
-//            return items.size();
-//          }
-//
-//        });
-    return null;
-  }
+    return this.jdbcTemplate.batchUpdate(createSql(), new BatchPreparedStatementSetter() {
+      public void setValues(PreparedStatement ps, int i) throws SQLException {
+        ps.setInt(1, items.get(i).getId());
+        ps.setString(2, items.get(i).getName());
+        ps.setString(3, items.get(i).getType());
+        ps.setString(4, items.get(i).getName());
+        ps.setString(5, items.get(i).getType());
+      }
 
-//  private String createMerge() {
-//    StringBuilder sb = new StringBuilder();
-//    sb.append(" MERGE INTO item A ");
-//    sb.append(" USING (SELECT ? id FROM dual) B ");
-//    sb.append(" ON (A.id = B.id)");
-//    sb.append(" WHEN MATCHED THEN");
-//    sb.append(" UPDATE SET A.name = ?, A.type=? ");
-//    sb.append(" WHEN NOT MATCHED THEN ");
-//    sb.append(" INSERT (A.id, A.name, A.type) VALUES (?, ?, ?) ");
-//    return sb.toString();
-//  }
+      public int getBatchSize() {
+        return items.size();
+      }
+
+    });
+  }
 
   private String createSql() {
     StringBuilder sb = new StringBuilder();
