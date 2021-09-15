@@ -1,11 +1,11 @@
 // Spring Initializrで作成　https://start.spring.io/
 // https://guides.gradle.org/building-spring-boot-2-projects-with-gradle/
 plugins {
-	id 'org.springframework.boot' version '2.3.0.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'org.springframework.boot' version '2.5.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java-library'
 	id 'eclipse'
-    id 'maven'
+    id 'maven-publish'
 }
 
 group = 'jp.prototype'
@@ -14,12 +14,15 @@ sourceCompatibility = '1.8'
 
 repositories {
 	mavenCentral()
+	mavenLocal()
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+//	implementation 'org.springframework.data:spring-data-jpa:2.5.4'
+//	implementation 'javax.persistence:javax.persistence-api:2.2'
+	compileOnly 'org.projectlombok:lombok:1.18.20'
+	annotationProcessor 'org.projectlombok:lombok:1.18.20'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
@@ -30,10 +33,36 @@ test {
 	useJUnitPlatform()
 }
 
-bootJar {
-    enabled = false
+//bootJar {
+//    enabled = false
+//}
+//
+//jar {
+//    enabled = true
+//}
+
+task sourceJar(type : Jar) {
+	from sourceSets.main.allJava
 }
 
-jar {
-    enabled = true
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			// bootJar is the default build task configured by Spring Boot
+//			artifact bootJar
+			from components.java
+			versionMapping {
+				usage('java-api') {
+					fromResolutionOf('runtimeClasspath')
+				}
+				usage('java-runtime') {
+					fromResolutionResult()
+				}
+			}
+			artifact sourceJar {
+				classifier = 'sources'
+				extension  = 'jar'
+			}
+		}
+	}
 }
