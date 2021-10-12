@@ -5,6 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import jp.prototype.common.model.Item;
 
+/**
+ * ÉRÉÅÉìÉg
+ * @author sparrow
+ *
+ */
 @Repository
 public interface ItemJpaRepository extends JpaRepository<Item, String> {
 }
