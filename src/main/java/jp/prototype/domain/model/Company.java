@@ -1,4 +1,4 @@
-package jp.prototype.common.model;
+package jp.prototype.domain.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,18 +8,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
-@Table(name = "Item")
-public class Item {
-  
+@Table(name = "nikkei")
+public class Company {
+
   @Id
-  private int id;
-  
-  private String Name;
-  
-  private String type;
+  private String code;
+
+  private String name;
+
+  private String category;
 
 }

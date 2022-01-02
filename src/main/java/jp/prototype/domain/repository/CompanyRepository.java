@@ -1,9 +1,8 @@
-package jp.prototype.common.repository;
+package jp.prototype.domain.repository;
 
+import jp.prototype.domain.model.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import jp.prototype.common.model.Company;
 
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, String> {

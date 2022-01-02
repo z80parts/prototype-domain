@@ -1,4 +1,4 @@
-package jp.prototype.common.repository;
+package jp.prototype.domain.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import jp.prototype.common.model.Item;
+import jp.prototype.domain.model.Item;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
