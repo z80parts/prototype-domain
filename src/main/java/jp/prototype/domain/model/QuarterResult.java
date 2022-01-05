@@ -39,13 +39,13 @@ public class QuarterResult {
 
   private String title;
 
-  private long sales;
+  private Long sales ;
 
-  private long operationIncome;
+  private Long operationIncome;
 
-  private long ordinaryIncome;
+  private Long ordinaryIncome;
 
-  private long netIncome;
+  private Long netIncome;
 
   private BigDecimal eps;
 
