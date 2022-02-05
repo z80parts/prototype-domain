@@ -1,12 +1,11 @@
 package jp.prototype.domain.service;
 
-import java.util.List;
-
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import jp.prototype.domain.dto.ResultDTO;
@@ -45,8 +44,8 @@ public class QuarterResultService {
     return dto;
   }
 
-  public List<QuarterResult> find(String code, String name) {
-    return repository.findByNameJpql(name);
+  public Page<QuarterResult> find(QuarterResult searchCondition, Pageable page) {
+    Example<QuarterResult> exapmple = Example.of(searchCondition);
+    return repository.findAll(exapmple, page);
   }
-
 }
