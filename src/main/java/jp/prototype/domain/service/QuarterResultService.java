@@ -31,9 +31,6 @@ public class QuarterResultService {
     // all values
     ExampleMatcher matcher = ExampleMatcher.matching()
             .withStringMatcher(StringMatcher.CONTAINING);
-    // for individual properties
-//    ExampleMatcher matcher = ExampleMatcher.matching()
-//            .withMatcher("name", match -> match.contains());
     Page<QuarterResult> results = repository.findAll(Example.of(qr, matcher),
             PageRequest.of(page, size));
     ResultDTO<QuarterResult> dto = new ResultDTO<QuarterResult>();
@@ -45,7 +42,12 @@ public class QuarterResultService {
   }
 
   public Page<QuarterResult> find(QuarterResult searchCondition, Pageable page) {
-    Example<QuarterResult> exapmple = Example.of(searchCondition);
+
+    // for individual properties
+    ExampleMatcher matcher = ExampleMatcher.matching()
+            .withMatcher("code", ExampleMatcher.GenericPropertyMatchers.contains()) // あいまいにしないと、空文字で検索結果0
+            .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains());
+    Example<QuarterResult> exapmple = Example.of(searchCondition, matcher);
     return repository.findAll(exapmple, page);
   }
 }
